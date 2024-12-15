@@ -84,21 +84,13 @@ bool WinCondition(char grid[3][3],char player){
     return false;
 }
 
-bool EndGameScreen(bool isXTurn, char grid[3][3], bool gameFinished){
-if (!isXTurn){
-    if (WinCondition(grid, 'x')){
-        std::cout << "X have win" << std::endl;
-        gameFinished = true;
-        exit(0);
+bool CheckWinAndDisplay(bool isXTurn, char grid[3][3]) {
+    char player = isXTurn ? 'x' : 'o';
+    if (WinCondition(grid, player)) {
+        std::cout << player << " has won!" << std::endl;
+        return true;
     }
-}else{
-    if (WinCondition(grid, 'o')){
-        std::cout << "O have win" << std::endl;
-        gameFinished = true;
-        exit(0);
-    }
-}
-    return gameFinished;
+    return false;
 }
 
 int main() {
@@ -109,13 +101,15 @@ int main() {
     Display(result.grid);
 
     while (c < 9 && !gameFinished){
+        // Player play
         align();
         char userChoice = AskUser();
         align();
         result = Replace(result.grid,userChoice,result.isXTurn);
         Display(result.grid);
-        gameFinished =EndGameScreen(result.isXTurn, result.grid, gameFinished);
+        gameFinished = CheckWinAndDisplay(result.isXTurn, result.grid);
         c++;
+        // Bot play
         align();
         std::cout << "The bot think of the best move...";
         align();
@@ -123,10 +117,11 @@ int main() {
         char botPlay = comp(result.grid);
         result = Replace(result.grid,botPlay,result.isXTurn);
         Display(result.grid);
-        gameFinished =EndGameScreen(result.isXTurn, result.grid, gameFinished);
+        gameFinished =CheckWinAndDisplay(result.isXTurn, result.grid);
         c++;
     }
-    if (!gameFinished){
+    if (!gameFinished)
+    {
          std::cout << "Draw" << std::endl;
     }
     return 0;
