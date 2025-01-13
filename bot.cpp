@@ -109,45 +109,6 @@ char comp(char grid[3][3]) {
     return bestMove;
 }
 
-// char comp(char grid[3][3]){
-//     char bestPlay;
-//     int bestValue = 5;
-//     S g;
-//     memcpy(g.grid, grid, sizeof(g.grid));
-//     for (int i = 0; i <=9;++i){
-//             char move = '1'+i;
-//             if (isLegal(grid, move)){
-//                 S g = doMove(grid, move);
-//                 int value = Minimax(g.grid, 10, false);
-//                if(value > bestValue){
-//                 bestValue = value;
-//                 bestPlay = move;
-//                }
-//             }
-//         }
-//     return bestPlay;
-// }
-
-
-
-
-
-// char RandomMove(){
-//     std::random_device rd;
-//     std::mt19937 gen(rd());
-//     std::uniform_int_distribution<> dis(1, 9);
-//     return '0'+dis(gen);
-// }
-
-// char finalBotPlay(char grid[3][3]){
-//     char move=RandomMove();
-//     if (isLegal(grid, move)){
-//         return move;
-//     }else{
-//         return finalBotPlay(grid);
-//     }
-//     return 0;
-// }
 
 /*
 
