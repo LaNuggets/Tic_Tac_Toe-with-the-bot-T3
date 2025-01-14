@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "function.h"
+
 
 
 int menu(){
@@ -17,20 +19,20 @@ void userChoice(int &x, int &y){
     y = (userChoice-1)%3;
 }
 
-void printBoard(std::vector<std::vector<char>> board){
+void printBoard(const std::vector<std::vector<char>>& board){
     for(int i = 0; i < 3; ++i){
         for(int j = 0; j < 3; ++j){
-            std::cout << board[i][j];
+            std::cout << board[i][j] << " ";
         }
         std::cout << "\n";
     }
 }
 
-bool isLegal(std::vector<std::vector<char>> board, int x, int y){
+bool isLegal(const std::vector<std::vector<char>>& board, int x, int y){
     return board[x][y] != 'x' && board[x][y] != 'o';
 }
 
-bool isBoardFull(std::vector<std::vector<char>> board){
+bool isBoardFull(const std::vector<std::vector<char>>& board){
     int count = 0;
     for(int i = 0; i < 3; ++i){
         for(int j = 0; j < 3; ++j){
@@ -45,7 +47,7 @@ bool isBoardFull(std::vector<std::vector<char>> board){
     return false;
 }
 
-bool isWin(std::vector<std::vector<char>> board, char player){
+bool isWin(const std::vector<std::vector<char>>& board, char player){
         for (int i = 0; i < 3; ++i) {
         if (board[i][0] == player && board[i][1] == player && board[i][2] == player) {
             return true;
@@ -98,9 +100,25 @@ int main(){
             break;
         }
 
-        //Bot turn
+        std::cout << "\n";
 
+        //Bot turn
+        std::pair<int, int> bestMove = findBestMove(board);
+        board[bestMove.first][bestMove.second] = 'o';
+
+        printBoard(board);
+
+        if(isWin(board, player)){
+            std::cout <<"o Win !;\n";
+            break;
+        }
+
+        if (isBoardFull(board)){
+            std::cout <<"Draw\n";
+            break;
+        }
     }
+
     return 0;
 }
 
