@@ -35,7 +35,7 @@ int minimax(std::vector<std::vector<char>>& board, int depth, bool isMaxi, int a
                     bestScore = minimax(board, depth -1, !isMaxi, alpha, beta);
                     board[i][j] = cellValue;
 
-                    beta = std::max(beta, bestScore);
+                    beta = std::min(beta, bestScore);
                     if (beta <= alpha)
                         break;
                 }

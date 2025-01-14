@@ -91,7 +91,7 @@ int main(){
         printBoard(board);
 
         if(isWin(board, player)){
-            std::cout <<"x Win !;\n";
+            std::cout <<"x Win !\n";
             break;
         }
 
