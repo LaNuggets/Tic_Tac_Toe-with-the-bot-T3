@@ -51,7 +51,7 @@ int Minimax(char grid[3][3], int depth, bool isMaxi, char player, int alpha, int
                 if (grid[i][j] != 'x' && grid[i][j] != 'o') {
                     char move = '1' + i * 3 + j;
                     S newGrid = doMove(grid, move, player);
-                    int nplayer = changePlayer(player);
+                    char nplayer = changePlayer(player);
                     int score = Minimax(newGrid.grid, depth - 1, false, nplayer, alpha, beta);
                     bestScore = std::max(score, bestScore);
                     alpha = std::max(alpha, score);
@@ -67,7 +67,7 @@ int Minimax(char grid[3][3], int depth, bool isMaxi, char player, int alpha, int
                 if (grid[i][j] != 'x' && grid[i][j] != 'o') {
                     char move = '1' + i * 3 + j;
                     S newGrid = doMove(grid, move, player);
-                    int nplayer = changePlayer(player);
+                    char nplayer = changePlayer(player);
                     int score = Minimax(newGrid.grid, depth - 1, true, nplayer, alpha, beta);
                     bestScore = std::min(score, bestScore);
                     beta = std::min(beta, score);
@@ -94,6 +94,9 @@ char comp(char grid[3][3]) {
                 char move = '1' + i * 3 + j;
                 newGrid = doMove(grid, move, player);
                 if (WinCondition(newGrid.grid, 'o')) {
+                    return move;
+                }
+                if (WinCondition(newGrid.grid, 'x')) {
                     return move;
                 }
                 int score = Minimax(newGrid.grid, 9, false, player, INT_MIN, INT_MAX);

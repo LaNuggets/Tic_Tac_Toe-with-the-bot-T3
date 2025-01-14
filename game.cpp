@@ -24,7 +24,7 @@ char AskUser(){
     while(true){
     std::cout << "Choose a number between 1 and 9: ";
     std::cin >> userChoice;
-        if (userChoice >= '1' && userChoice <= '9') {
+        if ((userChoice >= '1' && userChoice <= '9') && (isLegal)) {
             return userChoice;
         } else {
             std::cout << "Invalid input." << std::endl;
@@ -115,6 +115,7 @@ int main() {
         align();
         align();
         char botPlay = comp(result.grid);
+        result.isXTurn = false;
         result = Replace(result.grid,botPlay,result.isXTurn);
         Display(result.grid);
         gameFinished =CheckWinAndDisplay(result.isXTurn, result.grid);
